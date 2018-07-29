@@ -4,5 +4,5 @@ services:
     build: .
     ports:
      - "808:80"
-     volumes:
+    volumes:
      - .:/code
