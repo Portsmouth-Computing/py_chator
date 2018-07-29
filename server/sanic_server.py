@@ -17,7 +17,7 @@ print("Static links setup")
 
 @app.route("/messages/get", methods=["GET"])
 async def messages_handler(request):
-    conn = await asyncpg.connect(host="postgres")
+    conn = await asyncpg.connect(host="postgres", user="postgres")
     messages = await conn.fetchrow(
         "SELECT * FROM messages"
     )
