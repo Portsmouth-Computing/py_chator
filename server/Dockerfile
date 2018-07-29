@@ -1,4 +1,5 @@
-# Use an official Python runtime as a parent image
+# Use an official Python runtime as a parent image,
+# need to use 3.7 as 3.7-slim breaks the GCC compile of sanic
 FROM python:3.7
 
 # Set the working directory to /py_chator
