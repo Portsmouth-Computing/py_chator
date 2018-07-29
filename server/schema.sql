@@ -1,4 +1,6 @@
 CREATE TABLE IF NOT EXISTS messages (
-id int PRIMARY KEY,
-message text(2000) not null)
+    id bigint PRIMARY KEY,
+    message text not null
+    CHECK char_length(message) <= 2000
+)
 ;
