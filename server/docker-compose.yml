@@ -5,7 +5,7 @@ services:
     ports:
       - "808:80"
     volumes:
-      - .:/code
+      - .:/py_chator
   postgres:
     image: "postgres:10-alpine"
     volumes:
