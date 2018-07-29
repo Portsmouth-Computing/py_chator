@@ -20,7 +20,7 @@ function keyDownHandler(e) {
 }
 
 async function loadMessages() {
-  const response = await fetch('/messages');
+  const response = await fetch('/messages/get');
   if (!response.ok) {
     console.error('bad response');
     return;
@@ -49,7 +49,7 @@ async function addMessage(e) {
     return;
   }
 
-  const response = await fetch('/messages', {
+  const response = await fetch('/messages/post', {
     method: 'POST',
     body: JSON.stringify({ value: newMsgEl.value.trim() }),
     headers: {
