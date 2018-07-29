@@ -28,13 +28,10 @@ async def messages_handler(request):
 
 @app.route("/messages/post", methods=["POST"])
 async def messages_post_handler(request):
-    print(request.json)
-    print(request.json["value"])
-    return sanic.response.text("200")
     conn = await asyncpg.connect(host="postgres", user="postgres")
     await conn.execute("""
-    INSERT INTO messages(message) VALUES($1)""", request.json)
-    return sanic.response.text("You have posted")
+    INSERT INTO messages(message) VALUES($1)""", request.json["value"])
+    return sanic.response.json({"status": 200})
 
 
 if __name__ == "__main__":
