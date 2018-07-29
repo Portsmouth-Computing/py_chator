@@ -23,12 +23,17 @@ async def messages_handler(request):
     )
     print(messages)
     # Get the messages from the database
-    return sanic.response.text("hi")
+    return sanic.response.json("[]")
 
 
 @app.route("/messages/post", methods=["POST"])
 async def messages_post_handler(request):
-    # Add the message to the database
+    print(request.json)
+    print(request.json["value"])
+    return sanic.response.text("200")
+    conn = await asyncpg.connect(host="postgres", user="postgres")
+    await conn.execute("""
+    INSERT INTO messages(message) VALUES($1)""", request.json)
     return sanic.response.text("You have posted")
 
 
