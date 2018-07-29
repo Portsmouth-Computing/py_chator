@@ -1,7 +1,7 @@
 window.addEventListener('load', initialize);
 const newMsgEl = document.querySelector('#newmsg');
 
-const AUTOREFRESH_INTERVAL = 1000; // 1s
+const AUTOREFRESH_INTERVAL = 5000; // 1s
 
 async function initialize() {
   newMsgEl.addEventListener('keydown', keyDownHandler);
