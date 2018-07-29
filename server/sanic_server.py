@@ -1,6 +1,7 @@
 from sanic import Sanic
 import sanic.response
 import requests
+import asyncpg
 print("Imported")
 
 app = Sanic("chator")
@@ -11,9 +12,16 @@ app.static("/", "./webpages/index.html")
 app.static("/py-chator.js", "./webpages/py-chator.js")
 app.static("/css/index.css", "./webpages/index.css")
 
+print("Static links setup")
+
 
 @app.route("/messages/get", methods=["GET"])
 async def messages_handler(request):
+    conn = await asyncpg.connect()
+    messages = await conn.fetchrow(
+        "SELECT * FROM messages"
+    )
+    print(messages)
     # Get the messages from the database
     return sanic.response.text("hi")
 
