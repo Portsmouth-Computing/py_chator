@@ -2,6 +2,7 @@ from sanic import Sanic
 import sanic.response
 import requests
 import asyncpg
+from server_programs import database_programs
 print("Imported")
 
 app = Sanic("chator")
@@ -13,11 +14,12 @@ app.static("/py-chator.js", "./webpages/py-chator.js")
 app.static("/css/index.css", "./webpages/index.css")
 
 print("Static links setup")
+conn = await asyncpg.connect(host="postgres", user="postgres")
+print("Connected to database")
 
 
 @app.route("/messages/get", methods=["GET"])
 async def messages_handler(request):
-    conn = await asyncpg.connect(host="postgres", user="postgres")
     messages = await conn.fetchrow(
         "SELECT * FROM messages"
     )
@@ -28,10 +30,12 @@ async def messages_handler(request):
 
 @app.route("/messages/post", methods=["POST"])
 async def messages_post_handler(request):
-    conn = await asyncpg.connect(host="postgres", user="postgres")
-    await conn.execute("""
-    INSERT INTO messages(message) VALUES($1)""", request.json["value"])
-    return sanic.response.json({"status": 200})
+    await database_programs.insert_into_database(request.json["value"])
+
+    messages = await database_programs.fetch_from_database()
+    formatted_list = await database_programs.fetch_formattor(messages)
+
+    return sanic.response.json(formatted_list)
 
 
 if __name__ == "__main__":
