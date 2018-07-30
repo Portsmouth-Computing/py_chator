@@ -38,7 +38,7 @@ function fillMessages(data) {
 
   for (const msg of data) {
     const li = document.createElement('li');
-    li.textContent = JSON.stringify(msg, null, 1);
+    li.textContent = msg.message;
     ol.appendChild(li);
   }
 }
