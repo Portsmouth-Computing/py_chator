@@ -25,7 +25,7 @@ async def setup_db_connection(app, loop):
 
 @app.route("/messages/get", methods=["GET"])
 async def messages_handler(request):
-    async with request.app.pool.aquire() as conn:
+    async with request.app.pool.acquire() as conn:
         messages = await database_programs.fetch_from_database(conn)
     formatted_list = await database_programs.fetch_formattor(messages)
     return sanic.response.json(formatted_list)
@@ -33,10 +33,10 @@ async def messages_handler(request):
 
 @app.route("/messages/post", methods=["POST"])
 async def messages_post_handler(request):
-    async with request.app.pool.aquire() as conn:
+    async with request.app.pool.acquire() as conn:
         await database_programs.insert_into_database(conn, request.json["value"])
 
-    async with request.app.pool.aquire() as conn:
+    async with request.app.pool.acquire() as conn:
         messages = await database_programs.fetch_from_database(conn)
     formatted_list = await database_programs.fetch_formattor(messages)
 
