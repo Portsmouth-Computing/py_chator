@@ -17,9 +17,15 @@ app.static("/css/index.css", "./webpages/index.css")
 print("Static links setup")
 
 
+@app.listener('before_server_start')
+async def setup_db_connection(app, loop):
+    app.conn = await asyncpg.connect(host="postgres", user="postgres")
+    print("Connected to database")
+
+
 @app.route("/messages/get", methods=["GET"])
 async def messages_handler(request):
-    messages = await conn.fetchrow(
+    messages = await request.app.conn.fetchrow(
         "SELECT * FROM messages"
     )
     print(messages)
@@ -29,21 +35,15 @@ async def messages_handler(request):
 
 @app.route("/messages/post", methods=["POST"])
 async def messages_post_handler(request):
-    await database_programs.insert_into_database(conn, request.json["value"])
+    await database_programs.insert_into_database(request.app.conn, request.json["value"])
 
-    messages = await database_programs.fetch_from_database(conn)
+    messages = await database_programs.fetch_from_database(request.app.conn)
     formatted_list = await database_programs.fetch_formattor(messages)
 
     return sanic.response.json(formatted_list)
 
 
-async def init_app():
-    global conn
+if __name__ == "__main__":
     ip = requests.get("http://api.ipify.org")
     print(f"Running on {ip.text}")
-    conn = await asyncpg.connect(host="postgres", user="postgres")
-    print("Connected to database")
-
-if __name__ == "__main__":
-    asyncio.run(init_app())
     app.run(host="0.0.0.0", port=80, access_log=True)
