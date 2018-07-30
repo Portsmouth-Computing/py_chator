@@ -3,7 +3,6 @@ import sanic.response
 import requests
 import asyncpg
 from server_programs import database_programs
-import asyncio
 print("Imported")
 
 app = Sanic("chator")
@@ -41,6 +40,16 @@ async def messages_post_handler(request):
     formatted_list = await database_programs.fetch_formattor(messages)
 
     return sanic.response.json(formatted_list)
+
+
+@app.websocket("/online")
+async def online_handler(request, ws):
+    while True:
+        data = "hello"
+        print("Sending: "+data)
+        await ws.send(data)
+        data = await ws.recv()
+        print("Got: ", data)
 
 
 if __name__ == "__main__":
