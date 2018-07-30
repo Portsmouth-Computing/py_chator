@@ -2,6 +2,7 @@
 <title>ch@or: a little chat app</title>
 <link rel='stylesheet' href="index.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <html lang="en">
 <head>
@@ -9,8 +10,17 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>py-ch@or: a little chat app</h1>
-    <input type="text" id="newmsg" maxlength="281" placeholder="type your new message here" autofocus>
+    <div class="parent-div">
+        <div>
+            <h1>py-ch@or: a little chat app</h1>
+        </div>
+        <div id="status-div">
+            <h1 id="status">Status</h1>
+        </div>
+    </div>
+    <div id="newmsg-container">
+        <input type="text" id="newmsg" maxlength="281" placeholder="type your new message here" autofocus>
+    </div>
 
     <ol id="messages">
         <li>no messages
