@@ -43,7 +43,7 @@ async def init_app():
     print(f"Running on {ip.text}")
     conn = await asyncpg.connect(host="postgres", user="postgres")
     print("Connected to database")
-    app.run(host="0.0.0.0", port=80, access_log=True)
 
 if __name__ == "__main__":
     asyncio.run(init_app())
+    app.run(host="0.0.0.0", port=80, access_log=True)
