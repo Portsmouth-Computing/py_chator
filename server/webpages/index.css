@@ -1,7 +1,11 @@
 #newmsg {
-  width: 95vw;
+  width: 75%;
   padding: .5rem ;
   font-size: 130%;
+}
+
+ol.li {
+    font-family: "Trebuchet MS", serif;
 }
 
 #messages > li {
