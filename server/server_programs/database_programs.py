@@ -1,13 +1,8 @@
-import asyncpg
-host = "postgres"
-user = "postgres"
-
-
 async def fetch_from_database(conn):
     messages = await conn.fetch(
         "SELECT * FROM messages ORDER BY id DESC LIMIT 50"
     )
-
+    print("Fetch from DB: ", messages)
     return messages
 
 
@@ -16,6 +11,7 @@ async def fetch_formattor(messages):
     for message in messages:
         formatted_list.append({"id": message["id"], "message": message["messages"]})
 
+    print("Fetch Formatter: ", formatted_list)
     return formatted_list
 
 

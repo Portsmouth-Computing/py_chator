@@ -25,12 +25,9 @@ async def setup_db_connection(app, loop):
 
 @app.route("/messages/get", methods=["GET"])
 async def messages_handler(request):
-    messages = await request.app.conn.fetchrow(
-        "SELECT * FROM messages"
-    )
-    print(messages)
-    # Get the messages from the database
-    return sanic.response.json("[]")
+    messages = database_programs.fetch_from_database(request.app.conn)
+    formatted_list = database_programs.fetch_formattor(messages)
+    return sanic.response.json(formatted_list)
 
 
 @app.route("/messages/post", methods=["POST"])
