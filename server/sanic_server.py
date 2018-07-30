@@ -8,10 +8,10 @@ print("Imported")
 app = Sanic("chator")
 print("Setup App")
 
-app.static("/favicon.ico", "./favicon.ico", name="favicon")
+app.static("/favicon.ico", "./webpages/favicon.ico", name="favicon")
 app.static("/", "./webpages/index.html")
 app.static("/py-chator.js", "./webpages/py-chator.js")
-app.static("/css/index.css", "./webpages/index.css")
+app.static("/index.css", "./webpages/index.css")
 
 print("Static links setup")
 
