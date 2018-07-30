@@ -19,22 +19,25 @@ print("Static links setup")
 
 @app.listener('before_server_start')
 async def setup_db_connection(app, loop):
-    app.conn = await asyncpg.connect(host="postgres", user="postgres")
+    app.pool = await asyncpg.create_pool(host="postgres", user="postgres")
     print("Connected to database")
 
 
 @app.route("/messages/get", methods=["GET"])
 async def messages_handler(request):
-    messages = await database_programs.fetch_from_database(request.app.conn)
+    async with request.app.pool.aquire() as conn:
+        messages = await database_programs.fetch_from_database(conn)
     formatted_list = await database_programs.fetch_formattor(messages)
     return sanic.response.json(formatted_list)
 
 
 @app.route("/messages/post", methods=["POST"])
 async def messages_post_handler(request):
-    await database_programs.insert_into_database(request.app.conn, request.json["value"])
+    async with request.app.pool.aquire() as conn:
+        await database_programs.insert_into_database(conn, request.json["value"])
 
-    messages = await database_programs.fetch_from_database(request.app.conn)
+    async with request.app.pool.aquire() as conn:
+        messages = await database_programs.fetch_from_database(conn)
     formatted_list = await database_programs.fetch_formattor(messages)
 
     return sanic.response.json(formatted_list)
