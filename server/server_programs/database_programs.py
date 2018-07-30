@@ -2,10 +2,8 @@ import asyncpg
 host = "postgres"
 user = "postgres"
 
-conn = await asyncpg.connect(host=host, user=user)
 
-
-async def fetch_from_database():
+async def fetch_from_database(conn):
     messages = await conn.fetch(
         "SELECT * FROM messages ORDER BY id DESC LIMIT 50"
     )
@@ -21,7 +19,7 @@ async def fetch_formattor(messages):
     return formatted_list
 
 
-async def insert_into_database(message):
+async def insert_into_database(conn, message):
     await conn.execute("""
     INSERT INTO messages(message) VALUES($1)""",
                        message)
