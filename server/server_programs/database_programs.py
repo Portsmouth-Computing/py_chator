@@ -9,7 +9,7 @@ async def fetch_from_database(conn):
 async def fetch_formattor(messages):
     formatted_list = []
     for message in messages:
-        formatted_list.append({"id": message["id"], "message": message["messages"]})
+        formatted_list.append({"id": message["id"], "message": message["message"]})
 
     print("Fetch Formatter: ", formatted_list)
     return formatted_list
