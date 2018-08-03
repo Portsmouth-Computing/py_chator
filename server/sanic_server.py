@@ -62,7 +62,6 @@ async def online_handler(request, ws):
     while True:
         connection = await ws.recv()
         await ws.send("Online")
-        asyncio.sleep(5)
 
 
 if __name__ == "__main__":
