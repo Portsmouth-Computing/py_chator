@@ -1,4 +1,4 @@
 sanic
 requests
 asyncpg
-websockets
+websockets==5.0.1 # Otherwise Sanic has a issue see sanic issue #1264
