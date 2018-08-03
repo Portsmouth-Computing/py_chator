@@ -8,6 +8,13 @@ function websocket() {
     ws = new WebSocket('ws://' + document.domain + ':' + location.port + '/online');
 }
 
+function restart_websocket() {
+    setTimeout(websocket, WEBSOCKET_AUTOREFRESH_INTERVAL * WEBSOCKET_AUTOREFRESH_MULTIPLIER)
+    if (WEBSOCKET_AUTOREFRESH_INTERVAL < 32){
+        WEBSOCKET_AUTOREFRESH_MULTIPLIER = WEBSOCKET_AUTOREFRESH_INTERVAL * 2
+    }
+}
+
 function initialize() {
     var status_box = document.getElementById("status");
     status_box.style.backgroundColor = "FireBrick"; // No connection, ForestGreen on good connection
@@ -29,6 +36,7 @@ window.setInterval(function() {
     else {
         document.getElementById("status").style.backgroundColor = "FireBrick";
         console.log("No connection");
+        restart_websocket()
     }
     // console.log("Sent ", data)
 }, WEBSOCKET_AUTOREFRESH_INTERVAL);
