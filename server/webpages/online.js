@@ -1,5 +1,5 @@
 window.addEventListener('load', initialize);
-var AUTOREFRESH_INTERVAL = 1000;
+var WEBSOCKET_AUTOREFRESH_INTERVAL = 1000;
 var WEBSOCKET_AUTOREFRESH_MULTIPLIER  = 1;
 
 websocket();
@@ -31,4 +31,4 @@ window.setInterval(function() {
         console.log("No connection");
     }
     // console.log("Sent ", data)
-}, WEBSOCKET_AUTOREFRESH_MULTIPLIER);
+}, WEBSOCKET_AUTOREFRESH_INTERVAL);
