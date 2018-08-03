@@ -10,10 +10,6 @@ function initialize() {
     status_box.style.color = "White";               // Change the text colour to make it easier to see
 }
 
-function websocket() {
-    var ws = new WebSocket('ws://' + document.domain + ':' + location.port + '/online');
-}
-
 ws.onmessage = function (event) {
     console.log("Got ", event.data);
     if (document.getElementById("status").style.backgroundColor !== "ForestGreen") {
@@ -32,3 +28,7 @@ window.setInterval(function() {
     }
     // console.log("Sent ", data)
 }, WEBSOCKET_AUTOREFRESH_INTERVAL);
+
+function websocket() {
+    var ws = new WebSocket('ws://' + document.domain + ':' + location.port + '/online');
+}
