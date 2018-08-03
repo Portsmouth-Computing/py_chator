@@ -3,6 +3,7 @@ import sanic.response
 import requests
 import asyncpg
 from server_programs import database_programs
+import websockets
 print("Imported")
 
 app = Sanic("chator")
@@ -42,6 +43,11 @@ async def messages_post_handler(request):
     return sanic.response.json(formatted_list)
 
 
+@app.route("/websocket")
+async def websocket_handler(request):
+    return await sanic.response.file("./webpages/temp.html")
+
+
 @app.websocket("/online")
 async def online_handler(request, ws):
     while True:
@@ -61,4 +67,4 @@ async def online_handler(request, ws):
 if __name__ == "__main__":
     ip = requests.get("http://api.ipify.org")
     print(f"Running on {ip.text}")
-    app.run(host="0.0.0.0", port=80, access_log=True)
+    app.run(host="0.0.0.0", port=80, access_log=True, debug=True)
