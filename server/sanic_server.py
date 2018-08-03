@@ -12,6 +12,7 @@ print("Setup App")
 app.static("/favicon.ico", "./webpages/favicon.ico", name="favicon")
 app.static("/", "./webpages/index.html")
 app.static("/py-chator.js", "./webpages/py-chator.js")
+app.static("/online.js", "./webpages/online")
 app.static("/index.css", "./webpages/index.css")
 
 print("Static links setup")
@@ -58,15 +59,10 @@ async def feed(request, ws):
 
 @app.websocket("/online")
 async def online_handler(request, ws):
-    connection = await ws.recv()
     while True:
+        connection = await ws.recv()
         await ws.send("Online")
         asyncio.sleep(5)
-        # data = "hello"
-        # print("Sending: "+data)
-        # await ws.send(data)
-        # data = await ws.recv()
-        # print("Got: ", data)
 
 
 if __name__ == "__main__":
