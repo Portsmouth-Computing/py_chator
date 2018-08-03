@@ -2,27 +2,18 @@ window.addEventListener('load', initialize);
 
 function initialize() {
     var status_box = document.getElementById("status");
-    status_box.style.backgroundColor = "FireBrick";
+    status_box.style.backgroundColor = "FireBrick"; // No connection, ForestGreen on good connection
+    status_box.style.color = "White";               // Change the text colour to make it easier to see
 }
 
-var ws = new WebSocket('ws://' + document.domain + ':' + location.port + '/feed'),
-    messages = document.createElement('ul');
+var ws = new WebSocket('ws://' + document.domain + ':' + location.port + '/online');
 
 ws.onmessage = function (event) {
-    var messages = document.getElementsByTagName('ul')[0],
-        message = document.createElement('li'),
-        content = document.createTextNode('Received: ' + event.data);
-    message.appendChild(content);
-    messages.appendChild(message);
+    console.log("Got ", event.data)
 };
 
-document.body.appendChild(messages);
 window.setInterval(function() {
-    var data = 'bye!';
+    var data = 'Online?';
     ws.send(data);
-    var messages = document.getElementsByTagName('ul')[0],
-        message = document.createElement('li'),
-        content = document.createTextNode('Sent: ' + data);
-    message.appendChild(content);
-    messages.appendChild(message);
+    console.log("Sent ", data)
 }, 1000);
