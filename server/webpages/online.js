@@ -6,6 +6,7 @@ websocket();
 
 function websocket() {
     ws = new WebSocket('ws://' + document.domain + ':' + location.port + '/online');
+    console.log(ws.readyState)
 }
 
 function restart_websocket() {
