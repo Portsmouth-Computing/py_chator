@@ -1,4 +1,8 @@
 window.addEventListener('load', initialize);
+var AUTOREFRESH_INTERVAL = 1000;
+var AUTOREFRESH_MULTIPLIER  = 1;
+
+websocket();
 
 function initialize() {
     var status_box = document.getElementById("status");
@@ -6,10 +10,12 @@ function initialize() {
     status_box.style.color = "White";               // Change the text colour to make it easier to see
 }
 
-var ws = new WebSocket('ws://' + document.domain + ':' + location.port + '/online');
+function websocket() {
+    var ws = new WebSocket('ws://' + document.domain + ':' + location.port + '/online');
+}
 
 ws.onmessage = function (event) {
-    console.log("Got ", event.data)
+    console.log("Got ", event.data);
     if (document.getElementById("status").style.backgroundColor !== "ForestGreen") {
         document.getElementById("status").style.backgroundColor = "ForestGreen";
     }
@@ -25,4 +31,4 @@ window.setInterval(function() {
         console.log("No connection");
     }
     // console.log("Sent ", data)
-}, 1000);
+}, AUTOREFRESH_INTERVAL);
