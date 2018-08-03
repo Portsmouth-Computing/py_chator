@@ -18,8 +18,21 @@
     padding-right: 20px;
 }
 
+body {
+    margin: 8px;
+}
+
+ol {
+    width: 90%;
+    background-color: whitesmoke;
+    padding-top: .5rem;
+}
+
 li {
     font-family: "Trebuchet MS", serif;
+    width: 80%;
+    background-color: white;
+    padding-left: 5px;
 }
 
 h1 {
