@@ -18,9 +18,6 @@ function websocket() {
 function restart_websocket() {
     try {
         setTimeout(websocket, WEBSOCKET_AUTOREFRESH_INTERVAL * WEBSOCKET_AUTOREFRESH_MULTIPLIER)
-        if (!LOADMESSAGES_RUNNING) {
-            loadMessages()
-        }
     }
     finally {
         if (WEBSOCKET_AUTOREFRESH_MULTIPLIER < 16) {
@@ -39,7 +36,10 @@ window.setInterval(function() {
     var data = 'Online?';
     if (ws.readyState === 1) {
         ws.send(data);
-        WEBSOCKET_AUTOREFRESH_MULTIPLIER = 1
+        WEBSOCKET_AUTOREFRESH_MULTIPLIER = 1;
+        if (!LOADMESSAGES_RUNNING) {
+            loadMessages()
+        }
     }
     else {
         document.getElementById("status").style.backgroundColor = "FireBrick";
