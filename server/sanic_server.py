@@ -45,11 +45,17 @@ async def messages_post_handler(request):
 @app.websocket("/online")
 async def online_handler(request, ws):
     while True:
-        data = "hello"
-        print("Sending: "+data)
-        await ws.send(data)
-        data = await ws.recv()
-        print("Got: ", data)
+        connection = await ws.recv()
+        print("< ", connection)
+
+        await ws.send("potatoe")
+        print("> potatoe")
+
+        # data = "hello"
+        # print("Sending: "+data)
+        # await ws.send(data)
+        # data = await ws.recv()
+        # print("Got: ", data)
 
 
 if __name__ == "__main__":
