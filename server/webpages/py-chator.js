@@ -58,7 +58,7 @@ async function addMessage(e) {
   });
 
   if (response.ok) {
-    fillMessages(await response.json());
+    fillMessages(await response.json())
     newMsgEl.value = '';
     newMsgEl.focus();
   }

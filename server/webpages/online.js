@@ -12,7 +12,7 @@ function websocket() {
             document.getElementById("status").style.backgroundColor = "ForestGreen";
         }
     };
-    console.log(ws.readyState)
+    // console.log(ws.readyState)
 }
 
 function restart_websocket() {
@@ -20,7 +20,7 @@ function restart_websocket() {
         setTimeout(websocket, WEBSOCKET_AUTOREFRESH_INTERVAL * WEBSOCKET_AUTOREFRESH_MULTIPLIER)
     }
     finally {
-        if (WEBSOCKET_AUTOREFRESH_MULTIPLIER < 32) {
+        if (WEBSOCKET_AUTOREFRESH_MULTIPLIER < 16) {
             WEBSOCKET_AUTOREFRESH_MULTIPLIER = WEBSOCKET_AUTOREFRESH_MULTIPLIER * 2
         }
     }
@@ -36,6 +36,7 @@ window.setInterval(function() {
     var data = 'Online?';
     if (ws.readyState === 1) {
         ws.send(data);
+        WEBSOCKET_AUTOREFRESH_MULTIPLIER = 1
     }
     else {
         document.getElementById("status").style.backgroundColor = "FireBrick";
