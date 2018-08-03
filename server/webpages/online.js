@@ -1,3 +1,10 @@
+window.addEventListener('load', initialize);
+
+function initialize() {
+    var status_box = document.getElementById("status");
+    status_box.style.backgroundColor = "FireBrick";
+}
+
 var ws = new WebSocket('ws://' + document.domain + ':' + location.port + '/feed'),
     messages = document.createElement('ul');
 
