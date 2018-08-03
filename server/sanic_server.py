@@ -3,6 +3,7 @@ import sanic.response
 import requests
 import asyncpg
 from server_programs import database_programs
+import asyncio
 print("Imported")
 
 app = Sanic("chator")
@@ -60,7 +61,7 @@ async def online_handler(request, ws):
     connection = await ws.recv()
     while True:
         await ws.send("Online")
-
+        asyncio.sleep(5)
         # data = "hello"
         # print("Sending: "+data)
         # await ws.send(data)
