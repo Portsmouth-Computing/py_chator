@@ -57,12 +57,9 @@ async def feed(request, ws):
 
 @app.websocket("/online")
 async def online_handler(request, ws):
+    connection = await ws.recv()
     while True:
-        connection = await ws.recv()
-        print("< ", connection)
-
-        await ws.send("potatoe")
-        print("> potatoe")
+        await ws.send("Online")
 
         # data = "hello"
         # print("Sending: "+data)
