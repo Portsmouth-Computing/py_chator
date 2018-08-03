@@ -3,7 +3,6 @@ import sanic.response
 import requests
 import asyncpg
 from server_programs import database_programs
-import websockets
 print("Imported")
 
 app = Sanic("chator")
@@ -46,6 +45,16 @@ async def messages_post_handler(request):
 @app.route("/websocket")
 async def websocket_handler(request):
     return await sanic.response.file("./webpages/temp.html")
+
+
+@app.websocket('/feed')
+async def feed(request, ws):
+    while True:
+        data = 'hello!'
+        print('Sending: ' + data)
+        await ws.send(data)
+        data = await ws.recv()
+        print('Received: ' + data)
 
 
 @app.websocket("/online")

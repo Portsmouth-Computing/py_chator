@@ -5,7 +5,7 @@
     </head>
     <body>
         <script>
-            var ws = new WebSocket('ws://' + document.domain + ':' + location.port + '/feed'),
+            var ws = new WebSocket('ws://' + document.domain + ':' + location.port + '/websocket'),
                 messages = document.createElement('ul');
             ws.onmessage = function (event) {
                 var messages = document.getElementsByTagName('ul')[0],
