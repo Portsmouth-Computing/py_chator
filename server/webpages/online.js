@@ -18,7 +18,9 @@ function websocket() {
 function restart_websocket() {
     try {
         setTimeout(websocket, WEBSOCKET_AUTOREFRESH_INTERVAL * WEBSOCKET_AUTOREFRESH_MULTIPLIER)
-        loadMessages();
+        if (!LOADMESSAGES_RUNNING) {
+            loadMessages()
+        }
     }
     finally {
         if (WEBSOCKET_AUTOREFRESH_MULTIPLIER < 16) {
