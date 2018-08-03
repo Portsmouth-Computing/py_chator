@@ -1,6 +1,6 @@
 window.addEventListener('load', initialize);
 var WEBSOCKET_AUTOREFRESH_INTERVAL = 1000;
-var WEBSOCKET_AUTOREFRESH_MULTIPLIER  = 1;
+var WEBSOCKET_AUTOREFRESH_MULTIPLIER  = 1000;
 
 websocket();
 
@@ -13,7 +13,7 @@ function restart_websocket() {
         setTimeout(websocket, WEBSOCKET_AUTOREFRESH_INTERVAL * WEBSOCKET_AUTOREFRESH_MULTIPLIER)
     }
     finally {
-        if (WEBSOCKET_AUTOREFRESH_MULTIPLIER < 32) {
+        if (WEBSOCKET_AUTOREFRESH_MULTIPLIER < 32000) {
             WEBSOCKET_AUTOREFRESH_MULTIPLIER = WEBSOCKET_AUTOREFRESH_MULTIPLIER * 2
         }
     }
