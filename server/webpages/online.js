@@ -10,6 +10,9 @@ var ws = new WebSocket('ws://' + document.domain + ':' + location.port + '/onlin
 
 ws.onmessage = function (event) {
     console.log("Got ", event.data)
+    if (document.getElementById("status").style.backgroundColor !== "ForestGreen") {
+        document.getElementById("status").style.backgroundColor = "ForestGreen";
+    }
 };
 
 window.setInterval(function() {
