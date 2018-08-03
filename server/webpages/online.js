@@ -17,12 +17,12 @@ ws.onmessage = function (event) {
 
 window.setInterval(function() {
     var data = 'Online?';
-    try {
+    if (ws.readyState === 1) {
         ws.send(data);
     }
-    catch (error) {
+    else {
         document.getElementById("status").style.backgroundColor = "FireBrick";
-        console.log("No connection")
+        console.log("No connection");
     }
     // console.log("Sent ", data)
 }, 1000);
