@@ -31,7 +31,13 @@ async function loadMessages() {
     const data = await response.json();
     fillMessages(data);
 
-    setTimeout(loadMessages, AUTOREFRESH_INTERVAL);
+    try {
+        setTimeout(loadMessages, AUTOREFRESH_INTERVAL);
+    }
+    catch (e) {
+        console.error(e);
+        LOADMESSAGES_RUNNING = false;
+    }
 }
 
 function fillMessages(data) {
