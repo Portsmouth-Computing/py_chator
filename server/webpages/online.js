@@ -2,7 +2,11 @@ window.addEventListener('load', initialize);
 var WEBSOCKET_AUTOREFRESH_INTERVAL = 1000;
 var WEBSOCKET_AUTOREFRESH_MULTIPLIER  = 1;
 
-var ws = new WebSocket('ws://' + document.domain + ':' + location.port + '/online');
+websocket();
+
+function websocket() {
+    ws = new WebSocket('ws://' + document.domain + ':' + location.port + '/online');
+}
 
 function initialize() {
     var status_box = document.getElementById("status");
