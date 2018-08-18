@@ -2,5 +2,5 @@
 -e git://github.com/channelcat/sanic.git#egg=sanic
 requests
 asyncpg
-websockets # Otherwise Sanic has a issue see sanic issue #1264
+websockets==5.0.1 # Otherwise Sanic has a issue see sanic issue #1264
 
