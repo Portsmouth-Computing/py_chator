@@ -5,7 +5,7 @@ var WEBSOCKET_AUTOREFRESH_MULTIPLIER  = 1;
 websocket();
 
 function websocket() {
-    ws = new WebSocket('ws://' + document.domain + ':' + location.port + '/online');
+    ws = new WebSocket('wss://' + document.domain + ':' + location.port + '/online');
     ws.onmessage = function (event) {
         console.log("Got ", event.data);
         if (document.getElementById("status").style.backgroundColor !== "ForestGreen") {
