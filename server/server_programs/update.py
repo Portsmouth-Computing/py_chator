@@ -1,8 +1,8 @@
 import requests
 import json
 import os.path
-import logger
-log = logger.getLogger(__name__)
+import logging
+log = logging.getLogger(__name__)
 
 VERSION_JSON_LOCATION = "./version.json"
 BOOTSTRAP_JS_LOCATION = "../webpages/bootstrap.min.js"

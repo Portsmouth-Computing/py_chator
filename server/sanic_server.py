@@ -6,7 +6,8 @@ from server_programs import database_programs
 from server_programs import update
 import asyncio
 import logger
-log = logger.getLogger(__name__)
+import logging
+log = logging.getLogger(__name__)
 log.info("Imported")
 
 logger.fix_access_log()
