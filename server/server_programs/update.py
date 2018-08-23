@@ -34,15 +34,18 @@ async def bootstrap_version_check():
         log.info("Updating bootstrap file")
         log.info("Fetching version '{}' of bootstrap".format(latest_json["name"][1:]))
         latest_bootstrap_js = requests.get("https://stackpath.bootstrapcdn.com/bootstrap/{}/js/bootstrap.min.js".format(latest_json["name"][1:]))
-        if latest_bootstrap_js.status_code == 200:
-            with open(BOOTSTRAP_JS_LOCATION, "w") as file:
-                json.dump(latest_bootstrap_js.json(), file)
-            log.info("Updated bootstrap file")
-            with open(VERSION_JSON_LOCATION, "w") as file:
-                json.dump({"version": latest_json["name"]}, file)
-            log.info("Updated version file")
-        else:
-            log.warning(f"Status code {latest_bootstrap_js.status_code}. Text: {latest_bootstrap_js.text}")
+        try:
+            if latest_bootstrap_js.status_code == 200:
+                with open(BOOTSTRAP_JS_LOCATION, "w") as file:
+                    json.dump(latest_bootstrap_js.json(), file)
+                log.info("Updated bootstrap file")
+                with open(VERSION_JSON_LOCATION, "w") as file:
+                    json.dump({"version": latest_json["name"]}, file)
+                log.info("Updated version file")
+            else:
+                log.warning(f"Status code {latest_bootstrap_js.status_code}. Text: {latest_bootstrap_js.text}")
+        except json.decoder.JSONDecodeError as JDJSONDE:
+            log.error(JDJSONDE, latest_bootstrap_js.text)
     else:
         log.info("Bootstrap is on latest version")
 
