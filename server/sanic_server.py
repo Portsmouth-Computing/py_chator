@@ -5,10 +5,12 @@ import asyncpg
 from server_programs import database_programs
 from server_programs import update
 import asyncio
-print("Imported")
+import logging
+log = logging.getLogger(__name__)
+log.info("Imported")
 
 app = Sanic("chator")
-print("Setup App")
+log.info("Setup App")
 
 app.static("/favicon.ico", "./webpages/favicon.ico", name="favicon")
 app.static("/", "./webpages/index.html")
@@ -16,14 +18,14 @@ app.static("/py-chator.js", "./webpages/py-chator.js")
 app.static("/online.js", "./webpages/online.js")
 app.static("/index.css", "./webpages/index.css")
 
-print("Static links setup")
+log.info("Static links setup")
 
 
 @app.listener('before_server_start')
 async def setup_db_connection(app, loop):
     app.pool = await asyncpg.create_pool(host="postgres", user="postgres")
     await update.bootstrap_version_check()
-    print("Connected to database")
+    log.info("Connected to database")
 
 
 @app.route("/messages/get", methods=["GET"])
@@ -68,5 +70,5 @@ async def online_handler(request, ws):
 
 if __name__ == "__main__":
     ip = requests.get("http://api.ipify.org")
-    print(f"Running on {ip.text}")
+    log.info(f"Running on {ip.text}")
     app.run(host="0.0.0.0", port=80, access_log=True, debug=True)
