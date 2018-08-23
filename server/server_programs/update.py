@@ -5,7 +5,7 @@ import logging
 log = logging.getLogger(__name__)
 
 VERSION_JSON_LOCATION = "./version.json"
-BOOTSTRAP_JS_LOCATION = "../webpages/bootstrap.min.js"
+BOOTSTRAP_JS_LOCATION = "./webpages/bootstrap.min.js"
 
 
 async def bootstrap_version_check():
