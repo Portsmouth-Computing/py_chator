@@ -18,4 +18,7 @@ async def bootstrap_version_check():
         latest_bootstrap_js = requests.get("https://stackpath.bootstrapcdn.com/bootstrap/{}/js/bootstrap.min.js".format(latest_json["name"][1:]))
         with open("../webpages/bootstrap.min.js", "w") as file:
             file.write(str(latest_bootstrap_js))
+        print("Fetched updated bootstrap")
+    else:
+        print("bootstrap is on latest version")
 
