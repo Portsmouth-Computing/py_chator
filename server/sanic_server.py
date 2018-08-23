@@ -9,7 +9,9 @@ import logger
 log = logger.getLogger(__name__)
 log.info("Imported")
 
-app = Sanic("chator")
+logger.fix_access_log()
+
+app = Sanic("chator", configure_logging=False)
 log.info("Setup App")
 
 app.static("/favicon.ico", "./webpages/favicon.ico", name="favicon")
@@ -68,7 +70,7 @@ async def online_handler(request, ws):
         await ws.send("Online")
 
 
-if __name__ == "__main__":
+with logger.setup_logging():
     ip = requests.get("http://api.ipify.org")
     log.info(f"Running on {ip.text}")
     app.run(host="0.0.0.0", port=80, access_log=True, debug=True)
