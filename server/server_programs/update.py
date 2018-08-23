@@ -14,12 +14,12 @@ async def bootstrap_version_check():
     if os.path.isfile(VERSION_JSON_LOCATION) is False:
         log.warning(f"{VERSION_JSON_LOCATION} doesn't exist, creating.")
         with open(VERSION_JSON_LOCATION, "w") as file:
-            file.write(str({"version": "0.0"}))
+            json.dump({"version": "0.0"}, file)
         log.info(f"{VERSION_JSON_LOCATION} created.")
     if os.path.isfile(BOOTSTRAP_JS_LOCATION) is False:
         log.warning(f"{BOOTSTRAP_JS_LOCATION} doesn't exist, creating.")
         with open(BOOTSTRAP_JS_LOCATION, "w+") as file:
-            file.write("{}")
+            json.dump({}, file)
         log.info(f"{BOOTSTRAP_JS_LOCATION} created.")
     with open(VERSION_JSON_LOCATION) as file:
         try:
@@ -28,7 +28,7 @@ async def bootstrap_version_check():
             file.close()
             log.error(JDJSONDE, "Remaking file")
             with open(VERSION_JSON_LOCATION, "w+") as file:
-                file.write(str({"version": "0.0"}))
+                json.dump({"version": "0.0"}, file)
             json_file = json.load(file)
     if latest_json["name"] != json_file["version"]:
         log.info("Updating bootstrap file")
