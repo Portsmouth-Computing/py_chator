@@ -25,7 +25,7 @@ SOFTWARE.
 """
 
 import contextlib
-import logging
+import logger
 
 
 # modules which have spammy or not useful logs on DEBUG
@@ -37,38 +37,38 @@ def setup_logging():
     """Context manager which sets up stdout logging and shuts down logging on block exit."""
 
     try:
-        root = logging.getLogger()
-        root.setLevel(logging.DEBUG)
+        root = logger.getLogger()
+        root.setLevel(logger.DEBUG)
 
-        formatter = logging.Formatter(
+        formatter = logger.Formatter(
             '[%(asctime)s] [%(levelname)s] [%(name)s]: %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
         )
 
-        handler = logging.StreamHandler()
+        handler = logger.StreamHandler()
         handler.setFormatter(formatter)
 
         root.addHandler(handler)
 
         for name in SILENCED_LOGGERS:
-            logging.getLogger(name).setLevel(logging.INFO)
+            logger.getLogger(name).setLevel(logger.INFO)
 
         yield
     finally:
-        logging.shutdown()
+        logger.shutdown()
 
 
 def fix_access_log():
     # as sanic requires a different log format for it's access log we have to do this little dance
 
-    formatter = logging.Formatter(
+    formatter = logger.Formatter(
         '[%(asctime)s] [%(levelname)s] [%(name)s]: %(request)s %(status)d %(byte)d %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S',
     )
 
-    handler = logging.StreamHandler()
+    handler = logger.StreamHandler()
     handler.setFormatter(formatter)
 
-    access = logging.getLogger('sanic.access')
+    access = logger.getLogger('sanic.access')
     access.addHandler(handler)
 
     # normally loggers propagate to higher hierarchy loggers, due to the change in format we disable this

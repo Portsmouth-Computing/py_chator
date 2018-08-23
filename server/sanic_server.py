@@ -5,8 +5,8 @@ import asyncpg
 from server_programs import database_programs
 from server_programs import update
 import asyncio
-import logging
-log = logging.getLogger(__name__)
+import logger
+log = logger.getLogger(__name__)
 log.info("Imported")
 
 app = Sanic("chator")
