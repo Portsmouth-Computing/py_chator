@@ -20,6 +20,7 @@ app.static("/", "./webpages/index.html")
 app.static("/py-chator.js", "./webpages/py-chator.js")
 app.static("/online.js", "./webpages/online.js")
 app.static("/index.css", "./webpages/index.css")
+app.static("/bootstrap.min.js", "./webpages/bootstrap.min.js")
 
 log.info("Static links setup")
 
