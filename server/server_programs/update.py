@@ -23,12 +23,13 @@ async def bootstrap_version_check():
         log.info(f"{BOOTSTRAP_JS_LOCATION} created.")
     with open(VERSION_JSON_LOCATION) as file:
         try:
-            json_file = json.load(file.read())
+            json_file = json.load(file)
         except json.decoder.JSONDecodeError as JDJSONDE:
+            file.close()
             log.error(JDJSONDE, "Remaking file")
             with open(VERSION_JSON_LOCATION, "w+") as file:
                 file.write(str({"version": "0.0"}))
-            json_file = json.load(file.read())
+            json_file = json.load(file)
     if latest_json["name"] != json_file["version"]:
         log.info("Updating bootstrap file")
         latest_bootstrap_js = requests.get("https://stackpath.bootstrapcdn.com/bootstrap/{}/js/bootstrap.min.js".format(latest_json["name"][1:]))
