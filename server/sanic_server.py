@@ -3,6 +3,7 @@ import sanic.response
 import requests
 import asyncpg
 from server_programs import database_programs
+from server_programs import update
 import asyncio
 print("Imported")
 
@@ -21,6 +22,7 @@ print("Static links setup")
 @app.listener('before_server_start')
 async def setup_db_connection(app, loop):
     app.pool = await asyncpg.create_pool(host="postgres", user="postgres")
+    await update.bootstrap_version_check()
     print("Connected to database")
 
 
